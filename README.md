@@ -1,230 +1,164 @@
-# 🔐 JWT Authentication System (Experiment 8)
+# 🔐 JWT Frontend Integration (Experiment 8)
 
 ## 📌 Project Overview
 
-This project demonstrates a complete **JWT-based authentication system** with:
+This project implements a **React frontend** that integrates with a JWT-based backend authentication system.
 
-* ✅ Spring Boot Backend (Experiment 6)
-* ✅ React Frontend Integration (Experiment 8)
-* ✅ Session-based authentication using JWT
-* ✅ Protected routes and logout functionality
+The application allows users to:
 
-The application allows users to log in, access protected data, and manage sessions securely using JSON Web Tokens.
+* Log in using credentials
+* Store JWT token in session
+* Access protected routes
+* Logout securely
 
 ---
 
 ## 🎯 Objectives
 
-* Implement JWT authentication in backend
 * Integrate frontend with JWT APIs
-* Store JWT token using sessionStorage
-* Restrict access to protected routes
-* Understand session-based authentication flow
+* Store JWT token using `sessionStorage`
+* Restrict access to protected pages
+* Implement login and logout functionality
 
 ---
 
-## 🧩 Features Implemented
+## 🧩 Features
 
-### 🔑 Login System
+### 🔑 Login Page
 
-* User enters username and password
-* Backend validates credentials
-* JWT token is generated and returned
-* Token stored in browser sessionStorage
+* User enters username & password
+* Calls backend API: `POST /login`
+* On success:
+
+  * JWT token is stored in `sessionStorage`
+  * Redirects to dashboard
 
 ---
 
 ### 🔒 Protected Dashboard
 
-* Accessible only if token exists
-* Calls backend `/protected` API
-* Sends token via Authorization header
+* Accessible only if JWT token exists
+* Calls `GET /protected` API
+* Sends token in header:
 
----
-
-### 🚪 Logout Functionality
-
-* Clears token from sessionStorage
-* Redirects to login page
-* Ends user session
-
----
-
-## 🛠️ Tech Stack
-
-### Frontend:
-
-* React.js
-* Axios
-* Bootstrap / CSS
-
-### Backend:
-
-* Spring Boot
-* Spring Security
-* JWT (io.jsonwebtoken)
-* H2 Database
-
----
-
-## 📁 Project Structure
-
-```
-jwt-auth-project/
-├── backend/
-│   ├── controller/
-│   ├── service/
-│   ├── security/
-│   ├── model/
-│   ├── repository/
-│   └── JwtAuthApplication.java
-│
-├── frontend/
-│   ├── src/
-│   │   ├── components/
-│   │   │   ├── Login.js
-│   │   │   └── Dashboard.js
-│   │   ├── App.js
-│   │   └── index.js
-```
-
----
-
-## ⚙️ How to Run the Project
-
-### 🔹 Backend (Spring Boot)
-
-1. Open project in IntelliJ
-2. Run:
-
-```
-JwtAuthApplication.java
-```
-
-3. Server starts at:
-
-```
-http://localhost:8080
-```
-
----
-
-### 🔹 Frontend (React)
-
-1. Open terminal:
-
-```
-cd frontend
-npm install
-npm start
-```
-
-2. App runs at:
-
-```
-http://localhost:3000
-```
-
----
-
-## 🔐 API Endpoints
-
-### 🔸 Login
-
-```
-POST /login
-```
-
-Request:
-
-```json
-{
-  "username": "user123",
-  "password": "password123"
-}
-```
-
-Response:
-
-```json
-{
-  "token": "jwt_token_here"
-}
-```
-
----
-
-### 🔸 Protected Route
-
-```
-GET /protected
-```
-
-Header:
-
-```
+```id="e4s3yz"
 Authorization: Bearer <token>
 ```
 
 ---
 
-### 🔸 Logout (Optional)
+### 🚪 Logout
 
+* Clears session:
+
+```id="g0q4ul"
+sessionStorage.removeItem("token");
 ```
-POST /logout
+
+* Redirects to login page
+
+---
+
+## 🛠️ Tech Stack
+
+* React.js
+* Axios
+* Bootstrap / CSS
+
+---
+
+## 📁 Project Structure
+
+```id="7mrw9d"
+frontend/
+├── src/
+│   ├── components/
+│   │   ├── Login.js
+│   │   └── Dashboard.js
+│   ├── App.js
+│   └── index.js
 ```
 
 ---
 
-## 🔄 Authentication Flow
+## ⚙️ How to Run
 
-1. User logs in via frontend
-2. Backend validates credentials
-3. JWT token is generated
-4. Token stored in sessionStorage
-5. Token sent with every protected request
-6. Backend verifies token before access
+1. Open terminal inside frontend folder:
+
+```id="q9p9k6"
+cd frontend
+```
+
+2. Install dependencies:
+
+```id="1i6m2j"
+npm install
+```
+
+3. Start React app:
+
+```id="0x7xv5"
+npm start
+```
+
+4. Open in browser:
+
+```id="9l7pl6"
+http://localhost:3000
+```
 
 ---
 
-## 📸 Screenshots Included
+## 🔗 Backend Connection
 
-* Login Page UI
+Frontend connects to backend APIs:
+
+* Login → `http://localhost:8080/login`
+* Protected → `http://localhost:8080/protected`
+
+---
+
+## 🔐 Authentication Flow
+
+1. User logs in
+2. Backend returns JWT token
+3. Token stored in `sessionStorage`
+4. Token used in API requests
+5. Dashboard accessible only with valid token
+
+---
+
+## 📸 Screenshots
+
+* Login Page
 * Token stored in sessionStorage
-* Dashboard (Protected Page)
+* Dashboard page
 * Protected API response
-* Logout functionality
+* Logout
 
 ---
 
 ## ⚠️ Notes
 
-* Backend runs on port **8080**
-* Frontend runs on port **3000**
-* H2 database resets on restart
-* Default user:
-
-```
-Username: user123
-Password: password123
-```
+* Backend must be running on **port 8080**
+* Token is stored only for session (not permanent)
+* Unauthorized users are redirected to login
 
 ---
 
 ## 🚀 Conclusion
 
-This project successfully demonstrates:
+This project demonstrates:
 
-✔ JWT Authentication
-✔ Secure API communication
-✔ Session-based UI control
-✔ Full-stack integration
+✔ JWT-based authentication flow
+✔ Secure frontend-backend communication
+✔ Session-based access control
 
 ---
 
 ## 👩‍💻 Author
 
-Name: *[Your Name]*
-Experiment: **Experiment 8 - Frontend JWT Integration**
+Name: *Sania Joshi*
+Experiment: **Experiment 8 - Frontend Integration**
 
 ---
